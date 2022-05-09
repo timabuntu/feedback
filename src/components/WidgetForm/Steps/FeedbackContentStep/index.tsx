@@ -1,3 +1,4 @@
+import { ArrowLeft } from 'phosphor-react';
 import { FeedbackType, feedbackTypes } from '../..';
 import { CloseButton } from '../../../CloseButton';
 
@@ -12,6 +13,13 @@ export function FeedbackContentStep({
   return (
     <>
       <header>
+        <button
+          type='button'
+          className='absolute top-5 left-5 text-zinc-400 hover:text-zinc-100'
+        >
+          <ArrowLeft weight='bold' className='w-4 h-4' />
+        </button>
+
         <span className='flex items-center gap-2 text-xl leading-6'>
           <img
             src={feedbackTypeInfo.image.source}
