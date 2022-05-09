@@ -4,10 +4,12 @@ import { CloseButton } from '../../../CloseButton';
 
 interface FeedbackContentStepProps {
   feedbackType: FeedbackType;
+  onFeedbackRestartRequested: () => void;
 }
 
 export function FeedbackContentStep({
   feedbackType,
+  onFeedbackRestartRequested,
 }: FeedbackContentStepProps) {
   const feedbackTypeInfo = feedbackTypes[feedbackType];
   return (
@@ -16,6 +18,7 @@ export function FeedbackContentStep({
         <button
           type='button'
           className='absolute top-5 left-5 text-zinc-400 hover:text-zinc-100'
+          onClick={onFeedbackRestartRequested}
         >
           <ArrowLeft weight='bold' className='w-4 h-4' />
         </button>
