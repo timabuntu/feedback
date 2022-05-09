@@ -39,7 +39,16 @@ export function FeedbackContentStep({
         <textarea
           className='min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none border-zinc-600 bg-transparent rounded-md resize-none scrollbar scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin'
           placeholder='Conte com detalhes o que está acontecendo...'
-        ></textarea>
+        />
+
+        <footer className='flex gap-2 mt-2'>
+          <button
+            type='submit'
+            className='flex items-center justify-center flex-1 p-2 text-sm transition-colors border-transparent rounded-md bg-brand-500 hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500'
+          >
+            Enviar feedback
+          </button>
+        </footer>
       </form>
     </>
   );
