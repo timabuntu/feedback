@@ -1,5 +1,5 @@
 import { ArrowLeft } from 'phosphor-react';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { FeedbackType, feedbackTypes } from '../..';
 import { CloseButton } from '../../../CloseButton';
 import { ScreenshotButton } from '../../ScreenshotButton';
@@ -14,8 +14,18 @@ export function FeedbackContentStep({
   onFeedbackRestartRequested,
 }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
+  const [comment, setComment] = useState<string>('');
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
+
+  function handleSubmitFeedback(event: FormEvent) {
+    event.preventDefault();
+
+    console.log({
+      screenshot,
+      comment,
+    });
+  }
   return (
     <>
       <header>
@@ -39,10 +49,12 @@ export function FeedbackContentStep({
         <CloseButton />
       </header>
 
-      <form className='w-full my-4'>
+      <form onSubmit={handleSubmitFeedback} className='w-full my-4'>
         <textarea
           className='min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none border-zinc-600 bg-transparent rounded-md resize-none scrollbar  scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin'
           placeholder='Conte com detalhes o que está acontecendo...'
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
         />
 
         <footer className='flex gap-2 mt-2'>
