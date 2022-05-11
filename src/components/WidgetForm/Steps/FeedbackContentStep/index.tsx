@@ -3,6 +3,7 @@ import { FormEvent, useState } from 'react';
 import { FeedbackType, feedbackTypes } from '../..';
 import { api } from '../../../../service/api';
 import { CloseButton } from '../../../CloseButton';
+import Loading from '../../../Loading';
 import { ScreenshotButton } from '../../ScreenshotButton';
 
 interface FeedbackContentStepProps {
@@ -18,17 +19,22 @@ export function FeedbackContentStep({
 }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState<string>('');
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
   async function handleSubmitFeedback(event: FormEvent) {
     event.preventDefault();
 
+    setIsSendingFeedback(true);
+
     await api.post('/feedbacks', {
       type: feedbackType,
       comment,
       screenshot,
     });
+
+    setIsSendingFeedback(false);
 
     onFeedbackSent();
   }
@@ -71,10 +77,10 @@ export function FeedbackContentStep({
 
           <button
             type='submit'
-            disabled={comment.length === 0}
+            disabled={comment.length === 0 || isSendingFeedback}
             className='flex items-center justify-center flex-1 p-2 text-sm transition-colors border-transparent rounded-md bg-brand-500 hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 disabled:opacity-50 disabled:hover:bg-brand-500'
           >
-            Enviar feedback
+            {isSendingFeedback ? <Loading /> : 'Enviar feedback'}
           </button>
         </footer>
       </form>
